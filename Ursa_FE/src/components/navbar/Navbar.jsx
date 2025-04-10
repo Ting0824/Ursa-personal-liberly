@@ -45,8 +45,12 @@ export default function Navbar() {
         {/* 手機版：漢堡選單 */}
         <div className="md:hidden flex items-center gap-x-2">
           <MobileMenu />
-          <a href="/" className="text-xl font-bold text-white">
-            隅書
+          <a href="/" className="h-full flex items-center">
+            <img
+              src="/images/logo/headerLogo.png"
+              alt="Logo"
+              className="h-16 w-auto object-contain"
+            />
           </a>
         </div>
       </div>
@@ -59,7 +63,7 @@ function MobileMenu() {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Menu className="h-5 w-5" />
+          <Menu className="!h-8 !w-8 text-white" />
         </Button>
       </SheetTrigger>
       <SheetContent
