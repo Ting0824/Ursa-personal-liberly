@@ -5,3 +5,12 @@
 body {
   background-color: #faf6f1;
 }
+
+/* 隱藏拉桿 */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE 和 Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome、Safari */
+}
