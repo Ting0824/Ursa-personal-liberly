@@ -6,11 +6,13 @@ import MainLayout from "../layouts/MainLayout";
 
 // pages
 import Home from "../pages/Home";
+import SearchBooks from "../pages/SearchBooks";
 
 const AppRouter = () => (
   <Routes>
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Home />} />
+      <Route path="searchbooks" element={<SearchBooks />} />
     </Route>
 
     {/* 404 頁面 */}

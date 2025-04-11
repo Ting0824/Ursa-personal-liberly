@@ -1,9 +1,20 @@
+import React, { useState } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const searchBook = (evt) => {
+    if (evt.key === "Enter" && search.trim()) {
+      // 導向 searchBook 頁面，並把搜尋字串帶入 query string
+      navigate(`/searchBooks?query=${encodeURIComponent(search.trim())}`);
+    }
+  };
   return (
     <header className="w-full bg-primary sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
@@ -31,6 +42,9 @@ export default function Navbar() {
                 type="text"
                 placeholder="輸入作者、書名、ISBN"
                 className="w-full pl-10 pr-4 py-2 text-base rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={searchBook}
               />
             </div>
           </div>
@@ -52,6 +66,19 @@ export default function Navbar() {
               className="h-16 w-auto object-contain"
             />
           </a>
+          <div className="flex-grow max-w-2xl">
+            <div className="relative w-full">
+              <i className="absolute left-3 top-1/2 -translate-y-1/2 bi bi-search text-gray-500"></i>
+              <input
+                type="text"
+                placeholder="輸入作者、書名、ISBN"
+                className="w-full pl-10 pr-4 py-2 text-base rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={searchBook}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -66,15 +93,18 @@ function MobileMenu() {
           <Menu className="!h-8 !w-8 text-white" />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="left"
-        className="bg-white text-zinc-900 dark:bg-white dark:text-zinc-900"
-      >
+      <SheetContent side="left" className="bg-white">
         <DialogTitle>
-          <div className="sr-only">移動選單</div>
+          <div className="sr-only">手機側邊選單</div>
         </DialogTitle>
         <div className="flex flex-col space-y-4 mt-4">
-          <a href="/">隅書</a>
+          <a href="/" className="h-full flex items-center">
+            <img
+              src="/images/logo/Mobilelogo.png"
+              alt="Logo"
+              className="h-16 w-auto object-contain"
+            />
+          </a>
           <a href="/">成為隅藏家</a>
           <hr />
           <Button variant="outline">登入</Button>
