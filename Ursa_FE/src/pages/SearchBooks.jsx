@@ -11,7 +11,7 @@ export default function SearchBooks() {
   useEffect(() => {
     if (query) {
       axios
-        .get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=`)
+        .get(`http://localhost:8000/api/books?q=${query}`)
         .then((res) => setBookData(res.data.items))
         .catch((err) => console.log(err));
     }
