@@ -8,11 +8,16 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [searchType, setSearchType] = useState("title"); // 預設查書名
 
   const searchBook = (evt) => {
     if (evt.key === "Enter" && search.trim()) {
       // 導向 searchBook 頁面，並把搜尋字串帶入 query string
-      navigate(`/searchBooks?query=${encodeURIComponent(search.trim())}`);
+      navigate(
+        `/searchBooks?query=${encodeURIComponent(
+          search.trim()
+        )}&type=${searchType}`
+      );
     }
   };
   return (
@@ -35,7 +40,7 @@ export default function Navbar() {
           </div>
 
           {/* 中間：搜尋欄 */}
-          <div className="flex-grow max-w-2xl">
+          <div className="flex flex-grow max-w-2xl">
             <div className="relative w-full">
               <i className="absolute left-3 top-1/2 -translate-y-1/2 bi bi-search text-gray-500"></i>
               <input
@@ -47,6 +52,16 @@ export default function Navbar() {
                 onKeyDown={searchBook}
               />
             </div>
+            {/* 搜尋選項：書名/作者/ISBN */}
+            <select
+              className="ml-4 p-2 rounded"
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+            >
+              <option value="title">書名</option>
+              <option value="author">作者</option>
+              <option value="isbn">ISBN</option>
+            </select>
           </div>
 
           {/* 右邊：登入註冊 */}
@@ -77,6 +92,15 @@ export default function Navbar() {
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={searchBook}
               />
+              <select
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="title">書名</option>
+                <option value="author">作者</option>
+                <option value="isbn">ISBN</option>
+              </select>
             </div>
           </div>
         </div>
